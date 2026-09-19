@@ -10,8 +10,18 @@ import numpy as np
 def expected_value(values, probabilities):
     return sum(p * v for p, v in zip(probabilities, values))
 
-# Step 2 - one_reroll_die_value (not yet solved)
-# TODO: implement
+# Step 2 - one_reroll_die_value
+def one_reroll_die_value(sides):
+    take_threshold =  expected_value(range(1, sides + 1), [1/sides]*sides)
+    reroll_faces, take_faces = [], []
+
+    for s in range(1, sides +  1 ):
+        if s < take_threshold:
+            reroll_faces.append(s)
+        else:
+            take_faces.append(s)
+    value = 0.5 * take_threshold + 0.5 * sum(take_faces) / len(take_faces)
+    return {"value":value, "reroll_faces":reroll_faces}
 
 # Step 3 - pay_per_reroll_die_game (not yet solved)
 # TODO: implement
